@@ -1,11 +1,16 @@
----
-title: "Tutorial to use SOM"
-author: "Marco Puglia"
-date: "`r Sys.Date()`"
-output: rmdformats::downcute
-knit: (function(input_file, encoding) {
-  out_dir <- 'docs';
-  rmarkdown::render(input_file,
- encoding=encoding,
- output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
----
+%% Tutorial to use SOM
+% Author: Marco Puglia
+% Date: " + string(datetime('today','Format','yyyy-MM-dd'))
+%
+% This tutorial explains how to use a Self-Organizing Map (SOM) in MATLAB.
+
+%% Load Data
+data = load('dataset.mat');
+
+%% Train SOM
+% Example training with MATLAB's Neural Network Toolbox
+net = selforgmap([10 10]);
+net = train(net, data.features');
+
+%% Visualize Results
+plotsompos(net, data.features')
