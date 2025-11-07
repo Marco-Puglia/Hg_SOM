@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project type="Matlab">
+    <Description>Benthic Habitat Analysis Project</Description>
+    <Details>
+        <Parameter name="Version" value="1.0"/>
+        <Parameter name="Encoding" value="UTF-8"/>
+        <Parameter name="UseSpacesForTab" value="true"/>
+        <Parameter name="NumSpacesForTab" value="2"/>
+        <Parameter name="EnableCodeIndexing" value="true"/>
+    </Details>
+
+    <!-- Workspace behavior -->
+    <Startup>
+        <RestoreWorkspace value="default"/>
+        <SaveWorkspace value="default"/>
+    </Startup>
+
+    <!-- Project folders -->
+    <Path>
+        <Entry>code</Entry>
+        <Entry>data</Entry>
+        <Entry>docs</Entry>
+    </Path>
+
+    <!-- Tools configuration -->
+    <Dependencies>
+        <MatlabToolbox>Statistics and Machine Learning Toolbox</MatlabToolbox>
+    </Dependencies>
+</Project>
