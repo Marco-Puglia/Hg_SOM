@@ -21,9 +21,9 @@ Cossarini_Model_Output/
 
 Rosati_Data_Model_Output/
 
-│ ave.20140616-00_00_00.DMHg.nc
+│ ave.20140616-00_00_00.DMHg.nc (Not uploaded on github)
 
-│ ave.20140616-00_00_00.MMHg.nc
+│ ave.20140616-00_00_00.MMHg.nc (Not uploaded on github)
 
 │ data_ancillary_DGM.csv
 
@@ -35,6 +35,7 @@ somtoolbox/
 
 ## Software used
 Octave-10.3.0
+
 
 
 
