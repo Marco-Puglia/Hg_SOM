@@ -61,7 +61,7 @@ sData = som_normalize(sData, 'var');                    % Normalize data
 % 'init'       *(string) initialization: 'randinit' or 'lininit' (default)
 % 'mapsize'    *(string) do you want a 'small', 'normal' or 'big' map
 % 'training'    (string) 'short', 'default' or 'long'
-algorithm = 'seq';                                              % Selected: 'seq'/'batch'
+algorithm = 'batch';                                              % Selected: 'seq'/'batch'
 initalg = 'lininit';                                            % Selected: 'lininit'
 mapsize = 'big';                                                % Selected: 'big'
 training = 'long';                                              % Selected: 'long'
@@ -139,6 +139,12 @@ RegionalLabels = textdata(2:end,5);                                          % E
 sData.labels = RegionalLabels;                                               % Initialize your SOM data structure labels with regional labels
 map_keys   = {'SAD','TYR2','ION1_2','LEV','SWM','ALB','NWM','ION3','TYR1'};  % Original CSV labels
 map_values = {  'D',   'T',     'I',  'L',  'S',  'A',  'N',   'I',   'T'};  % Corresponding single-letter codes
+
+#RegionalLabels = textdata(2:end,16);                                         % Extract the seasonal labels from the 5th column (skip header row)
+#sData.labels = RegionalLabels;                                               % Initialize your SOM data structure labels with seasonal labels
+#map_keys   = {'autumn','spring','summer'};                                   % Original CSV labels
+#map_values = {  'A',   'P',     'U'};                                        % Corresponding single-letter codes
+
 mappedLabels = RegionalLabels;                                               % Initialize mappedLabels with the original labels
 
 % Loop through each key in map_keys
@@ -159,23 +165,25 @@ saveas(gcf, 'MeHg_SOM_hit_region.png');       % Save as PNG
 
 
 %% ===================== 9. Map SOM units back to coordinates =====================    % NOT USEFUL OUTPUT PRODUCED
-%figure(5);                                                                            % Open figure
-%
-%top = 100                                                                             % Select the top of the water column where to find the sample
-%bottom = 120                                                                          % Select the bottom of the water column where to find the sample
-%surface_idx = dataset(:,8) >= top & dataset(:,8) <= bottom;                           % Logical filter index for depths ># and <=#
-%coords_surface = dataset(surface_idx, [4 3]);                                         % Extract Longitude (column 4) and Latitude (column 3) for surface points
-%bmus_surface = bmus(surface_idx);                                                     % BMU values corresponding to surface points
+figure(5);                                                                            % Open figure
 
-%scatter(coords_surface(:,1), coords_surface(:,2), 50, bmus_surface, 'filled');        % Scatter plot of surface points colored by BMU; 50 = marker size, 'filled' = filled circles
-%axis equal;                                                                           % Ensure x and y axes have the same scale
-%xlim([-5 30]);                                                                        % Fixed longitude range (x-axis) from -5 to 30
-%ylim([35 45]);                                                                        % Fixed latitude range (y-axis) from 35 to 45
-%colorbar;                                                                             % Show colorbar representing BMU indices
-%xlabel('Longitude');                                                                  % Label x-axis
-%ylabel('Latitude');                                                                   % Label y-axis
-%title(sprintf('SOM Cluster Mediterranean Map - Depth %.1f to %.1f m', top, bottom));  % Add a title to the plot
-%set(gcf, 'Position', [100, 100, 800, 250]);                                           % Resize figure window for better clarity
+top = 100                                                                             % Select the top of the water column where to find the sample
+bottom = 120                                                                          % Select the bottom of the water column where to find the sample
+surface_idx = dataset(:,8) >= top & dataset(:,8) <= bottom;                           % Logical filter index for depths ># and <=#
+coords_surface = dataset(surface_idx, [4 3]);                                         % Extract Longitude (column 4) and Latitude (column 3) for surface points
+bmus_surface =  dataset(surface_idx,9);                                                     % BMU values corresponding to surface points
+
+scatter(coords_surface(:,1), coords_surface(:,2), 150, bmus_surface, 'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 1);        % Scatter plot of surface points colored by BMU; 50 = marker size, 'filled' = filled circles
+axis equal;                                                                           % Ensure x and y axes have the same scale
+xlim([-5 30]);                                                                        % Fixed longitude range (x-axis) from -5 to 30
+ylim([30 45]);                                                                        % Fixed latitude range (y-axis) from 35 to 45
+colormap(viridis);
+caxis([0 0.4]);
+colorbar;                                                                             % Show colorbar representing BMU indices
+xlabel('Longitude');                                                                  % Label x-axis
+ylabel('Latitude');                                                                   % Label y-axis
+title(sprintf('SOM Cluster Mediterranean Map - Depth %.1f to %.1f m', top, bottom));  % Add a title to the plot
+set(gcf, 'Position', [100, 100, 800, 250]);                                           % Resize figure window for better clarity
 
 clear map_keys map_values mappedLabels x_offset y_offset     % Clear temporary variables from workspace
 
