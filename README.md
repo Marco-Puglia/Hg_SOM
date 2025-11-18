@@ -5,10 +5,11 @@ The workflow loads, normalizes, and models environmental and biogeochemical data
 
 # Usage
 
-To fit, evaluate, and project the species distribution models, open and run **Hg_SOM.m**.
+To fit, evaluate, and project the Hg distribution models, open and run **Hg_SOM.m**.
 
 ## Software used
 Octave-10.3.0
+
 
 
 
